@@ -97,6 +97,8 @@ namespace MMABooksDBClasses
         public static bool DeleteCustomer(Customer customer)
         {
             // get a connection to the database
+            MySqlConnection connection = MMABooksDB.GetConnection();
+
             string deleteStatement =
                 "DELETE FROM Customers " +
                 "WHERE CustomerID = @CustomerID " +
@@ -106,20 +108,34 @@ namespace MMABooksDBClasses
                 "AND State = @State " +
                 "AND ZipCode = @ZipCode";
             // set up the command object
+            MySqlCommand deleteCommand = new (deleteStatement, connection);
+            deleteCommand.Parameters.AddWithValue("@Name", customer.Name);
+            deleteCommand.Parameters.AddWithValue("@Address", customer.Address);
+            deleteCommand.Parameters.AddWithValue("@City", customer.City);
+            deleteCommand.Parameters.AddWithValue("@State", customer.State);
+            deleteCommand.Parameters.AddWithValue("@ZipCode", customer.ZipCode);
+            deleteCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
 
             try
             {
                 // open the connection
+                connection.Open();
                 // execute the command
+                MySqlDataReader reader = deleteCommand.ExecuteReader();
+
                 // if the number of records returned = 1, return true otherwise return false
+                return (reader.RecordsAffected == 1) ? true : false;
             }
             catch (MySqlException ex)
             {
                 // throw the exception
+                throw ex;
+
             }
             finally
             {
                 // close the connection
+                connection.Close();
             }
 
             return false;
@@ -129,6 +145,8 @@ namespace MMABooksDBClasses
             Customer newCustomer)
         {
             // create a connection
+            MySqlConnection connection = MMABooksDB.GetConnection();
+
             string updateStatement =
                 "UPDATE Customers SET " +
                 "Name = @NewName, " +
@@ -143,19 +161,43 @@ namespace MMABooksDBClasses
                 "AND State = @OldState " +
                 "AND ZipCode = @OldZipCode";
             // setup the command object
+
+            MySqlCommand updateCommand = new(updateStatement, connection);
+            updateCommand.Parameters.AddWithValue("@NewName", newCustomer.Name);
+            updateCommand.Parameters.AddWithValue("@NewAddress", newCustomer.Address);
+            updateCommand.Parameters.AddWithValue("@NewCity", newCustomer.City);
+            updateCommand.Parameters.AddWithValue("@NewState", newCustomer.State);
+            updateCommand.Parameters.AddWithValue("@NewZipCode", newCustomer.ZipCode);
+            updateCommand.Parameters.AddWithValue("@OldCustomerID", oldCustomer.CustomerID);
+            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.Name);
+            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.Address);
+            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.City);
+            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.State);
+            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.ZipCode);
+
             try
             {
                 // open the connection
+                connection.Open();
+
                 // execute the command
+                MySqlDataReader reader = updateCommand.ExecuteReader();
+
                 // if the number of records returned = 1, return true otherwise return false
+                return (reader.RecordsAffected == 1) ? true : false;
+
             }
             catch (MySqlException ex)
             {
                 // throw the exception
+                throw ex;
+
             }
             finally
             {
                 // close the connection
+                connection.Close();
+
             }
 
             return false;
