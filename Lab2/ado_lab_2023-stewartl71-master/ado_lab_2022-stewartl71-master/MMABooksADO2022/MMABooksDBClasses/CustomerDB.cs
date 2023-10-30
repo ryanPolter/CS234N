@@ -170,10 +170,10 @@ namespace MMABooksDBClasses
             updateCommand.Parameters.AddWithValue("@NewZipCode", newCustomer.ZipCode);
             updateCommand.Parameters.AddWithValue("@OldCustomerID", oldCustomer.CustomerID);
             updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.Name);
-            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.Address);
-            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.City);
-            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.State);
-            updateCommand.Parameters.AddWithValue("@OldName", oldCustomer.ZipCode);
+            updateCommand.Parameters.AddWithValue("@OldAddress", oldCustomer.Address);
+            updateCommand.Parameters.AddWithValue("@OldCity", oldCustomer.City);
+            updateCommand.Parameters.AddWithValue("@OldState", oldCustomer.State);
+            updateCommand.Parameters.AddWithValue("@OldZipCode", oldCustomer.ZipCode);
 
             try
             {
