@@ -51,7 +51,7 @@ namespace MMABooksDBClasses
             }
         }
 
-        public static int AddProduct(Product product)
+        public static string AddProduct(Product product)
         {
             MySqlConnection connection = MMABooksDB.GetConnection();
             string insertStatement =
@@ -79,9 +79,9 @@ namespace MMABooksDBClasses
                     new MySqlCommand(selectStatement, connection);
 
                 string productCode = selectCommand.ExecuteReader();
-                int customerID = Convert.ToInt32(selectCommand.ExecuteScalar());
+                //int customerID = Convert.ToInt32(selectCommand.ExecuteScalar());
                 
-                return customerID;
+                return productCode;
             }
             catch (MySqlException ex)
             {
