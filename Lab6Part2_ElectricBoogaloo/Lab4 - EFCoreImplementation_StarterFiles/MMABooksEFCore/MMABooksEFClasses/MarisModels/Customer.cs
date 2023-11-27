@@ -11,18 +11,18 @@ namespace MMABooksEFClasses.MarisModels
         }
 
         public int CustomerId { get; set; }
-        public string Name { get; set; } = null!;
-        public string Address { get; set; } = null!;
-        public string City { get; set; } = null!;
-        public string StateCode { get; set; } = null!;
-        public string ZipCode { get; set; } = null!;
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string StateCode { get; set; }
+        public string ZipCode { get; set; }
 
         public override string ToString()
         {
             return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + State + ", " + ZipCode;
         }
 
-        public virtual State? State { get; set; } = null!;
+        public virtual State State { get; set; }
         public virtual ICollection<Invoices> Invoices { get; set; }
     }
 }
